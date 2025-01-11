@@ -6,13 +6,15 @@ import { ActivityActions } from "../reducers/activityReducer"
 type FormProps = {
     dispatch: Dispatch<ActivityActions>
 }
-export default function Form({dispatch} : FormProps) {
-  
-  const [activity, setActivity] = useState<Activity>({
+
+const initialState = {
     category: 1,
     name: '',
     calories: 0
-  })
+  }
+export default function Form({dispatch} : FormProps) {
+  
+  const [activity, setActivity] = useState<Activity>(initialState)
   
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,8 @@ export default function Form({dispatch} : FormProps) {
     e.preventDefault()
 
     dispatch({type: 'save-activity', payload: {newActivity: activity}})
+
+    setActivity(initialState)
   }
 
   const isValidActivity = () => {
